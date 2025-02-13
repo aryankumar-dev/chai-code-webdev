@@ -1,0 +1,80 @@
+Types of Memory
+
+1. Stack Memory
+
+Stack Memory are Small in Size , It is faster , we store primitive data here , it works in Last In, First Out (LIFO) manner
+
+2. Heap Memory
+
+Heap Memory are Large in Size , It is slower , we store data by its reference here
+
+Object
+
+Object are non primitive data type ,that stores data in key value pairs. it is stored in heap memory by reference.
+
+syntax
+
+const human{
+key : value,
+
+}
+
+How object store in Memory In Js
+
+When an object is created in JavaScript, the actual data of the object is stored in heap memory.
+
+The stack memory holds the variables and the references to the objects that live in the heap.
+
+What happen when we copy object into another object
+
+CODE-
+
+
+COPY
+ let p = {
+name: "aryan"
+}
+
+let q = p ; // Address of p in heap memory getting stored in q variable
+
+q.name = "kumar"
+
+console.log(p.name) // output is "kumar"
+Now Lets understand Code
+
+As you can see in line let q = p ; we are storing address of object p in q , due to this one major problem arising that is now p and q both accessing same location so both can make change.
+
+This arise a major problem in coping Object.
+
+Then how to Copy object without making both of them pointing to same location in heap memory
+
+For this we can use spread operator (...), spread operator iteratively copy object by value.
+const k = { ...p } // syntax
+One major problem with spread operator is that it Shallow Copy Javascript object meaning it will not copy by value if there is nested object which leads to same problem as both variables will point to same location of nested object
+To tackle this we need to Deep Copy Object meaning we will copy object by passing only value (even for nested object) to another variable
+To do so we will JSON Serialization and Unserialization of Objects in JavaScript
+1. Use JSON.stringify to Serialisation
+
+COPY
+ const person = {
+ name: "Aryan",
+
+ address: {
+ country: "India"
+ }
+ };
+ const person2 = JSON.stringify(person);
+
+ // Output: '{"name":"Aryan","address":{"country":"India"}}'
+2. Use JSON.parse(jsonString) to Unserialization
+
+COPY
+ const anotherperson = JSON.parse(person2); // now value of person is deep copies in anotherperson
+Conclusion:
+
+Imagine teleportation as converting a person into data, sending that data to another place, and then rebuilding the person exactly as they were. JSON serialization and deserialization work in a similar way.
+
+Key terminology
+
+Garbage Collection - > Js has Garbage Collection , it free up space in heap memory which are no longer in used by object
+Memory leak → A memory leak occurs when a program fails to release memory that is no longer needed.
